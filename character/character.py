@@ -13,21 +13,21 @@ class Character:
         self.imageName = image
         self.speed = speed
         self.accel = Vector2()
-        self.circleColor = (0, 0, 0)
-        self.maxDist = 1000
         self.baseColor = Vector3(0, 1, 1)
-        self.maxColor = Vector3(0, 0, 0)
+        self.maxColor = Vector3(0.88, 1, 1)
+        self.circleColor = (255, 0, 170)
 
     def update(self):
         self.velocity = self.velocity*0.9
         self.pos = self.pos + self.velocity
     
-    def color(self, clickPos):
+    def color(self, clickPos, maxDist):
         distance = self.pos.distance_to(clickPos)
-        print(distance)
-        hsvColor = self.baseColor.lerp(self.maxColor, min(distance/self.maxDist, 1))
-        hsvColor = colorsys.hsv_to_rgb(hsvColor[0], hsvColor[1], hsvColor[2])
-        self.circleColor = (hsvColor[0]*255, hsvColor[1]*255, hsvColor[2]*255)
+        if distance <= maxDist:
+            hsvColor = self.baseColor.lerp(self.maxColor, min(distance/maxDist, 1))
+            hsvColor = colorsys.hsv_to_rgb(hsvColor[0], hsvColor[1], hsvColor[2])
+            self.circleColor = (hsvColor[0]*255, hsvColor[1]*255, hsvColor[2]*255)
+
 
 
     def draw(self, layer):

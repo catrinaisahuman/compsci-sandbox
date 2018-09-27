@@ -13,6 +13,7 @@ characters = []
 
 didClick = False
 clickPos = (400, 300)
+windDist = 200
 def draw():
     global clickPos
     screen.fill('white')
@@ -25,12 +26,12 @@ for i in range(count):
     characters.append(c)
 
 def update():
-    global didClick, clickPos
+    global didClick, clickPos, windDist
     
     if didClick == True:
         for c in characters:
-            c.velocity = steeringForces.wind(c.velocity, c.pos, clickPos)
-            c.color(clickPos)
+            c.velocity = steeringForces.wind(c.velocity, c.pos, clickPos, windDist)
+            c.color(clickPos, windDist)
         didClick = False    
     for c in characters:
          c.update()
