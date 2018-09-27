@@ -3,7 +3,7 @@ import steeringForces
 import pgzrun
 from pygame.math import Vector2
 import random
-erlrighiulasn
+
 
 WIDTH = 800
 HEIGHT = 600
@@ -30,6 +30,7 @@ def update():
     if didClick == True:
         for c in characters:
             c.velocity = steeringForces.wind(c.velocity, c.pos, clickPos)
+            c.color(clickPos)
         didClick = False    
     for c in characters:
          c.update()
