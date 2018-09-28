@@ -23,10 +23,9 @@ class Character:
     
     def color(self, clickPos, maxDist):
         distance = self.pos.distance_to(clickPos)
-        if distance <= maxDist:
-            hsvColor = self.baseColor.lerp(self.maxColor, min(distance/maxDist, 1))
-            hsvColor = colorsys.hsv_to_rgb(hsvColor[0], hsvColor[1], hsvColor[2])
-            self.circleColor = (hsvColor[0]*255, hsvColor[1]*255, hsvColor[2]*255)
+        hsvColor = self.baseColor.lerp(self.maxColor, min(distance/maxDist, 1))
+        hsvColor = colorsys.hsv_to_rgb(hsvColor[0], hsvColor[1], hsvColor[2])
+        self.circleColor = (hsvColor[0]*255, hsvColor[1]*255, hsvColor[2]*255)
 
 
 
