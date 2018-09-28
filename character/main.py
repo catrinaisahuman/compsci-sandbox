@@ -3,6 +3,7 @@ import steeringForces
 import pgzrun
 from pygame.math import Vector2
 import random
+import time
 
 
 WIDTH = 800
@@ -11,9 +12,10 @@ HEIGHT = 600
 count = 10000
 characters = []
 
-didClick = False
 clickPos = (400, 300)
-windDist = 200
+windDist = 100
+frame = -1
+
 def draw():
     global clickPos
     screen.fill('white')
@@ -26,19 +28,15 @@ for i in range(count):
     characters.append(c)
 
 def update():
-    global didClick, clickPos, windDist
-    
-    if didClick == True:
-        for c in characters:
-            c.velocity = steeringForces.wind(c.velocity, c.pos, clickPos, windDist)
-            c.color(clickPos, windDist)
-        didClick = False    
+    global clickPos, windDist, frame
+    frame += 1
+    if frame%15 == 0:
+        clickPos = (random.randint(0,800), random.randint(0,600))
+
     for c in characters:
-         c.update()
-    
-def on_mouse_down(pos):
-    global didClick, clickPos
-    didClick = True
-    clickPos = Vector2(pos)
+        c.velocity = steeringForces.wind(c.velocity, c.pos, clickPos, windDist)
+        c.color(clickPos, windDist)   
+        c.update()
+
 
 pgzrun.go()
